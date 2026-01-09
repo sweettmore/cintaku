@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Untuk Kamu sayang❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Sacramento&display=swap');
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000814;
+            overflow-x: hidden;
+            color: #ffc300;
+        }
+
+        /* --- Background Bintang --- */
+        .stars {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
+        .star {
+            position: absolute; background: white; border-radius: 50%;
+            opacity: 0.5; animation: twinkle var(--d) infinite;
+        }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+
+        /* --- Overlay Awal --- */
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000814; z-index: 100;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; transition: 0.8s;
+        }
+        .card-awal {
+            padding: 40px; border-radius: 25px; border: 1px solid rgba(255, 195, 0, 0.4);
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(255, 195, 0, 0.1); max-width: 85%;
+        }
+        .btn-mulai {
+            margin-top: 25px; padding: 15px 45px; font-size: 1.1rem; font-weight: 600;
+            color: #000814; background: #ffc300; border: none; border-radius: 50px;
+            cursor: pointer; box-shadow: 0 5px 20px rgba(255, 195, 0, 0.3);
+        }
+
+        /* --- Layout Utama --- */
+        #main-content {
+            display: none; opacity: 0; transition: 1.5s;
+            position: relative; z-index: 10;
+            width: 100%; max-width: 650px;
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        /* --- Galeri Tanpa Batasan (Border-Free) --- */
+        .galeri-container {
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+        .galeri-container::-webkit-scrollbar { display: none; }
+
+        .foto-item {
+            min-width: 80%; /* Foto besar tapi tetap terlihat menyamping */
+            height: 400px;
+            object-fit: cover;
+            border-radius: 30px; /* Masih pakai lengkungan biar estetik */
+            scroll-snap-align: center;
+            /* Tanpa border, hanya shadow lembut agar menyatu */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
+            transition: 0.3s;
+        }
+
+        .hint-geser {
+            font-size: 0.8rem;
+            color: #ffc300;
+            margin-top: 20px;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            animation: bounceSide 2s infinite;
+        }
+
+        @keyframes bounceSide {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        /* Box Teks --- */
+        .teks-box {
+            margin: 30px 20px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 195, 0, 0.1);
+            text-align: left;
+        }
+        .teks-box h1 { font-family: 'Sacramento', cursive; font-size: 3.5rem; margin: 0 0 20px 0; text-align: center; }
+        #teks-jalan { font-size: 1.05rem; line-height: 1.8; color: #f1f1f1; }
+
+        /* Loader */
+        #lucu { display: none; margin-top: 20px; }
+        .loader {
+            width: 45px; height: 45px; border: 3px solid rgba(255, 195, 0, 0.1);
+            border-top: 3px solid #ffc300; border-radius: 50%;
+            animation: spin 1s linear infinite; margin: 0 auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="stars" id="star-container"></div>
+    <audio id="musik-lokal" src="music/Glenn Fredly - Kasih Putih (Official Audio).mp3" loop></audio>
+
+    <div id="overlay">
+        <div class="card-awal">
+            <h2 style="font-family: 'Sacramento', cursive; font-size: 3rem; margin: 0;">Halo Ganteng...</h2>
+            <p style="opacity: 0.8;">Buka pesan spesial di dalamnya</p>
+            <div id="tombol-container">
+                <button class="btn-mulai" onclick="mulaiAksi()">Lihat Cintaku ✨</button>
+            </div>
+            <div id="lucu">
+                <div class="loader"></div>
+                <p style="color: #ffc300; margin-top: 15px; font-weight: 600; font-size: 0.8rem; letter-spacing: 1px;">MEMBUKA HATI...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-content">
+        
+        <div class="galeri-container">
+            <img src="image/foto1.jpg" class="foto-item">
+            <img src="image/foto2.jpg" class="foto-item">
+            <img src="image/foto3.jpg" class="foto-item">
+            <img src="image/foto4.jpg" class="foto-item">
+        </div>
+
+        <p class="hint-geser">GESER FOTO ✨</p>
+
+        <div class="teks-box">
+            <h1>Teruntuk Kamu ❤️</h1>
+            <p id="teks-jalan"></p>
+            <div style="margin-top: 30px; border-top: 1px solid rgba(255,195,0,0.1); padding-top: 20px; text-align: center;">
+                <p style="font-size: 0.8rem; margin: 0; opacity: 0.6; color: #fff;">With All My Love,</p>
+                <p style="font-weight: 600; margin: 5px 0 0 0; color: #ffc300;">Kesayanganmu ✨</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Bintang Latar Belakang
+        const starContainer = document.getElementById('star-container');
+        for (let i = 0; i < 120; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2 + 1 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.setProperty('--d', Math.random() * 3 + 2 + 's');
+            starContainer.appendChild(star);
+        }
+
+        const pesanCinta = "Terima kasih sudah hadir dan mewarnai duniaku.\n\nSetiap tawa dan cerita yang kita bagi adalah kenangan yang akan selalu aku simpan rapi di dalam hati.\n\nAku tidak butuh dunia yang sempurna, aku hanya butuh kamu di sampingku.\n\nTetaplah menjadi alasan di balik senyumku. I love you more than words can say! ✨";
+
+        function mulaiAksi() {
+            const lagu = document.getElementById('musik-lokal');
+            lagu.play().catch(e => console.log("Perlu interaksi"));
+
+            document.getElementById('tombol-container').style.display = 'none';
+            document.getElementById('lucu').style.display = 'block';
+
+            setTimeout(() => {
+                const overlay = document.getElementById('overlay');
+                overlay.style.opacity = '0';
+                
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    const main = document.getElementById('main-content');
+                    main.style.display = 'block';
+                    setTimeout(() => {
+                        main.style.opacity = '1';
+                        mulaiKetik();
+                    }, 100);
+                }, 800);
+            }, 3000);
+        }
+
+        let indexKetik = 0;
+        function mulaiKetik() {
+            if (indexKetik < pesanCinta.length) {
+                document.getElementById("teks-jalan").innerHTML += pesanCinta.charAt(indexKetik);
+                indexKetik++;
+                setTimeout(mulaiKetik, 55);
+            }
+        }
+    </script>
+</body>
+</html>
